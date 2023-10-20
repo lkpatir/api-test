@@ -28,7 +28,26 @@ class APIService
            //no error
             if( !isset($userJsonData['error']) )
             {
-               $users = $userJsonData['results'];
+                $arrUser = [];
+
+                if( !empty($userJsonData['results']) )
+                {
+                    foreach($userJsonData['results'] as $key => $data)
+                    {
+                        $arrUser[$key]['gender'] = $data['gender'];
+                        $arrUser[$key]['name'] = $data['name'];
+                        $arrUser[$key]['address'] = $data['location'];
+                        $arrUser[$key]['email_id'] = $data['email'];
+                        $arrUser[$key]['dob'] = $data['dob']['date'];
+                        $arrUser[$key]['age'] = $data['dob']['age'];
+                        $arrUser[$key]['registration_date'] = $data['registered']['date'];
+                        $arrUser[$key]['phone'] = $data['phone'];
+                        $arrUser[$key]['cell'] = $data['cell'];
+                        $arrUser[$key]['profile_pictures'] = $data['picture'];
+                    }
+                }
+
+               $users = $arrUser;
             }
             else
             {
